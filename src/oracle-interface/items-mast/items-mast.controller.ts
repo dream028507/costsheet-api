@@ -1,11 +1,12 @@
 import {
+  Body,
   Controller,
+  Delete,
   Get,
+  Param,
+  ParseIntPipe,
   Post,
   Put,
-  Delete,
-  Param,
-  Body,
 } from '@nestjs/common';
 import { ItemsMastService } from './items-mast.service';
 import { ItemsMast } from './items-mast.entity';
@@ -14,13 +15,14 @@ import { ItemsMast } from './items-mast.entity';
 export class ItemsMastController {
   constructor(private readonly service: ItemsMastService) {}
 
+  // ดึงเฉพาะที่ Inactive = 0 (ไปกรองใน service)
   @Get()
   findAll(): Promise<ItemsMast[]> {
     return this.service.findAll();
   }
 
   @Get(':ID')
-  findOne(@Param('ID') ID: number): Promise<ItemsMast> {
+  findOne(@Param('ID', ParseIntPipe) ID: number): Promise<ItemsMast> {
     return this.service.findOne(ID);
   }
 
@@ -31,14 +33,14 @@ export class ItemsMastController {
 
   @Put(':ID')
   update(
-    @Param('ID') ID: number,
+    @Param('ID', ParseIntPipe) ID: number,
     @Body() data: Partial<ItemsMast>,
   ): Promise<ItemsMast> {
     return this.service.update(ID, data);
   }
 
   @Delete(':ID')
-  remove(@Param('ID') ID: number): Promise<void> {
+  remove(@Param('ID', ParseIntPipe) ID: number): Promise<void> {
     return this.service.remove(ID);
   }
 }

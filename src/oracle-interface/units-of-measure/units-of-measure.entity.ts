@@ -6,6 +6,4 @@ export class UnitsOfMeasure {
   ID: number;
   @Column({ type: 'nvarchar', length: 255, nullable: true })
   Name: string;
-  @Column({ type: 'nvarchar', length: 255, nullable: true })
-  Base_Unit: string;
 }

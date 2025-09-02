@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { ItemsMast } from './items-mast.entity';
-
+import { Equal } from 'typeorm';
 @Injectable()
 export class ItemsMastService {
   constructor(
@@ -11,7 +11,9 @@ export class ItemsMastService {
   ) {}
 
   findAll(): Promise<ItemsMast[]> {
-    return this.itemsMastRepository.find();
+    return this.itemsMastRepository.find({
+      where: { Inactive: Equal('0') },
+    });
   }
 
   findOne(ID: number): Promise<ItemsMast> {
