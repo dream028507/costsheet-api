@@ -17,7 +17,7 @@ export class ItemsMastController {
 
   // ดึงเฉพาะที่ Inactive = 0 (ไปกรองใน service)
   @Get()
-  findAll(): Promise<ItemsMast[]> {
+  findAll(): Promise<Pick<ItemsMast, 'ID' | 'Inactive' | 'Name'>[]> {
     return this.service.findAll();
   }
 

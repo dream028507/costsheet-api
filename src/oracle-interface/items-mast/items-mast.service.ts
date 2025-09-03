@@ -10,9 +10,10 @@ export class ItemsMastService {
     private readonly itemsMastRepository: Repository<ItemsMast>,
   ) {}
 
-  findAll(): Promise<ItemsMast[]> {
+  findAll(): Promise<Pick<ItemsMast, 'ID' | 'Inactive' | 'Name'>[]> {
     return this.itemsMastRepository.find({
       where: { Inactive: Equal('0') },
+      select: { ID: true, Inactive: true, Name: true },
     });
   }
 
